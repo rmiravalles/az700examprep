@@ -1,0 +1,31 @@
+#!/bin/bash
+
+## Assign variables
+rg=ContosoResourceGroup
+location=eastus
+zone=contoso.com
+
+# Create the private DNS zone
+az network private-dns zone create -g $rg \
+                                   -n $zone
+
+# Link the DNS zone to the Core Services Virtual Network
+az network private-dns link vnet create -g $rg \
+                                        -n CoreServicesVnetLink \
+                                        -z $zone \
+                                        -v CoreServicesVnet \
+                                        -e true  # this enables auto-registration
+
+# Link the DNS zone to the Manufacturing Virtual Network
+az network private-dns link vnet create -g $rg \
+                                        -n ManufacturingVnetLink \
+                                        -z $zone \
+                                        -v ManufacturingVnet \
+                                        -e true
+
+# Link the DNS zone to the Research Virtual Network
+az network private-dns link vnet create -g $rg \
+                                        -n ResearchVnetLink \
+                                        -z $zone \
+                                        -v ResearchVnet \
+                                        -e true

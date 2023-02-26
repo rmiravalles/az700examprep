@@ -1,2 +1,4 @@
-# az700examprep
-Study notes, scripts and resources
+
+# AZ-700 Exam Prep
+
+Study notes, scripts and resources.

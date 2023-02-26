@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Assign variables
+rg=ContosoResourceGroup
+location=eastus
+
+# Create the Resource Group
+az group create -n $rg -l $location
+
+# Create the Core Services Virtual Network
+az network vnet create -g $rg \
+                       -l $location \
+                       -n CoreServicesVnet \
+                       --address-prefixes 10.20.0.0/16
+
+
+#Create the Subnets for the Core Services Virtual Network
+az network vnet subnet create -g $rg \
+                              -n GatewaySubnet \
+                              --vnet-name CoreServicesVnet \
+                              --address-prefix 10.20.0.0/27
+
+az network vnet subnet create -g $rg \
+                              -n SharedServicesSubnet \
+                              --vnet-name CoreServicesVnet \
+                              --address-prefix 10.20.10.0/24
+
+az network vnet subnet create -g $rg \
+                              -n DatabaseSubnet \
+                              --vnet-name CoreServicesVnet \
+                              --address-prefix 10.20.20.0/24
+
+# Create the Manufacturing Virtual Network
+az network vnet create -g $rg \
+                       -l westeurope \
+                       -n ManufacturingVnet \
+                       --address-prefixes 10.30.0.0/16
+
+
+#Create the Subnets for the Manufacturing Virtual Network
+az network vnet subnet create -g $rg \
+                              -n ManufacturingSystemSubnet \
+                              --vnet-name ManufacturingVnet \
+                              --address-prefix 10.30.10.0/24
+
+az network vnet subnet create -g $rg \
+                              -n SensorSubnet1 \
+                              --vnet-name ManufacturingVnet \
+                              --address-prefix 10.30.20.0/24
+
+az network vnet subnet create -g $rg \
+                              -n SensorSubnet2 \
+                              --vnet-name ManufacturingVnet \
+                              --address-prefix 10.30.21.0/24
+
+az network vnet subnet create -g $rg \
+                              -n SensorSubnet3 \
+                              --vnet-name ManufacturingVnet \
+                              --address-prefix 10.30.22.0/24
+
+# Create the Research Virtual Network
+az network vnet create -g $rg \
+                       -l southeastasia \
+                       -n ResearchVnet \
+                       --address-prefixes 10.40.0.0/16
+
+#Create the Subnet for the Research Virtual Network
+az network vnet subnet create -g $rg \
+                              -n ResearchSystemSubnet \
+                              --vnet-name ResearchVnet \
+                              --address-prefix 10.40.0.0/24
+
