@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Assign variables
+rg=ContosoResourceGroup
+vnet1=CoreServicesVnet
+vnet2=ManufacturingVnet
+
+# Create peering vnet1 to vnet2
+az network vnet peering create -g $rg \
+                               -n $vnet1-to-$vnet2 \
+                               --vnet-name $vnet1 \
+                               --allow-vnet-access \
+                               --allow-forwarded-traffic \
+                               --remote-vnet $vnet2
+
+# Create peering vnet2 to vnet1
+az network vnet peering create -g $rg \
+                               -n $vnet2-to-$vnet1 \
+                               --vnet-name $vnet2 \
+                               --allow-vnet-access \
+                               --allow-forwarded-traffic \
+                               --remote-vnet $vnet1

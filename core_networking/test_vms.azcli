@@ -4,6 +4,8 @@
 rg=ContosoResourceGroup
 location=eastus
 
+# Create Test VM 1 and Test VM 2 to test the Private DNS Zone
+
 # Create Test VM 1
 az vm create -n testvm1 \
              --admin-username TestAdmin \
@@ -25,5 +27,17 @@ az vm create -n testvm2 \
             --subnet DatabaseSubnet \
             --vnet-name CoreServicesVnet \
             --nsg testvm2-nsg \
+            --nsg-rule RDP \
+            --image win2016datacenter
+
+# Create the Manufacturing VM to test the VNet peering
+az vm create -n manufacturingvm \
+             --admin-username TestAdmin \
+             --admin-password P@55w.rd1234 \
+            -g $rg \
+            -l westeurope \
+            --subnet ManufacturingSystemSubnet \
+            --vnet-name ManufacturingVnet \
+            --nsg manufacturingvm-nsg \
             --nsg-rule RDP \
             --image win2016datacenter
