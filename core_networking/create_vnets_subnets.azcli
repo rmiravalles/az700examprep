@@ -39,6 +39,11 @@ az network vnet create -g $rg \
 
 #Create the Subnets for the Manufacturing Virtual Network
 az network vnet subnet create -g $rg \
+                              -n GatewaySubnet \
+                              --vnet-name ManufacturingVnet \
+                              --address-prefix 10.30.0.0/27
+
+az network vnet subnet create -g $rg \
                               -n ManufacturingSystemSubnet \
                               --vnet-name ManufacturingVnet \
                               --address-prefix 10.30.10.0/24
@@ -69,4 +74,3 @@ az network vnet subnet create -g $rg \
                               -n ResearchSystemSubnet \
                               --vnet-name ResearchVnet \
                               --address-prefix 10.40.0.0/24
-

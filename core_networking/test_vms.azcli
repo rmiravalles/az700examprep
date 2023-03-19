@@ -10,34 +10,34 @@ location=eastus
 az vm create -n testvm1 \
              --admin-username TestAdmin \
              --admin-password P@55w.rd1234 \
-            -g $rg \
-            -l $location \
-            --subnet DatabaseSubnet \
-            --vnet-name CoreServicesVnet \
-            --nsg testvm1-nsg \
-            --nsg-rule RDP \
-            --image win2016datacenter
+             -g $rg \
+             -l $location \
+             --subnet DatabaseSubnet \
+             --vnet-name CoreServicesVnet \
+             --nsg testvm1-nsg \
+             --nsg-rule RDP \
+             --image win2016datacenter
 
 # Create Test VM 2
 az vm create -n testvm2 \
              --admin-username TestAdmin \
              --admin-password P@55w.rd1234 \
-            -g $rg \
-            -l $location \
-            --subnet DatabaseSubnet \
-            --vnet-name CoreServicesVnet \
-            --nsg testvm2-nsg \
-            --nsg-rule RDP \
-            --image win2016datacenter
+             -g $rg \
+             -l $location \
+             --subnet DatabaseSubnet \
+             --vnet-name CoreServicesVnet \
+             --nsg testvm2-nsg \
+             --nsg-rule RDP \
+             --image win2016datacenter
 
 # Create the Manufacturing VM to test the VNet peering
 az vm create -n manufacturingvm \
              --admin-username TestAdmin \
              --admin-password P@55w.rd1234 \
-            -g $rg \
-            -l westeurope \
-            --subnet ManufacturingSystemSubnet \
-            --vnet-name ManufacturingVnet \
-            --nsg manufacturingvm-nsg \
-            --nsg-rule RDP \
-            --image win2016datacenter
+             -g $rg \
+             -l westeurope \
+             --subnet ManufacturingSystemSubnet \
+             --vnet-name ManufacturingVnet \
+             --nsg manufacturingvm-nsg \
+             --nsg-rule RDP \
+             --image win2016datacenter

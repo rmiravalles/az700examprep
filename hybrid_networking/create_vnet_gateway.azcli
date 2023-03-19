@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Assign variables
+rg=ContosoResourceGroup
+location=eastus
+
+# Create a new public IP address for the Core Services Vnet Gateway
+az network public-ip create -n CoreServicesVnetGateway-ip \
+                            -g $rg \
+                            --sku Basic
+
+# Create a new public IP address for the Manufacturing Vnet Gateway
+az network public-ip create -n ManufacturingVnetGateway-ip \
+                            -g $rg \
+                            --location westeurope \
+                            --sku Basic
+
+# Create the CoreServicesVnetGateway
+az network vnet-gateway create -n CoreServicesVnetGateway \
+                               -g $rg \
+                               --vnet CoreServicesVnet \
+                               --location eastus \
+                               --gateway-type Vpn \
+                               --vpn-type RouteBased \
+                               --sku VpnGw1 \
+                               --vpn-gateway-generation Generation1 \
+                               --public-ip-address CoreServicesVnetGateway-ip
+
+# Create the ManufacturingVnetGateway
+az network vnet-gateway create -n ManufacturingVnetGateway \
+                               -g $rg \
+                               --vnet ManufacturingVnet \
+                               --location westeurope \
+                               --gateway-type Vpn \
+                               --vpn-type RouteBased \
+                               --sku VpnGw1 \
+                               --vpn-gateway-generation Generation1 \
+                               --public-ip-address ManufacturingVnetGateway-ip
